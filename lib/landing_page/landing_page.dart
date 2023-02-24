@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:proj3/homepage/homepage.dart';
 import 'package:proj3/signUp/sign_up.dart';
+import 'package:proj3/wrapper/wrapper.dart';
 
 class MyLandingPage extends StatelessWidget{
   const MyLandingPage({super.key});
@@ -94,7 +96,7 @@ class MyLandingPage extends StatelessWidget{
                           onTap: () {
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder:(context) =>  const SignUp(),
+                                builder:(context) => const Wrapper(),
                               )
                             );
                           },
@@ -118,10 +120,10 @@ class MyLandingPage extends StatelessWidget{
                                 const SizedBox(width : 24,),
 
                                 SvgPicture.asset(
-                                  'lib/svg/Arrow.svg',
-                                  width : 21.88,
-                                  height : 21.32,
-                                ),
+                                    'lib/svg/Arrow.svg',
+                                    width : 21.88,
+                                    height : 21.32,
+                                  ),
                               ],
                             ),
                           ),

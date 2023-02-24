@@ -4,12 +4,13 @@ class InputBox extends StatelessWidget{
   final controller;
   final String hintText;
   final bool obscureText;
-  
+  final decoration;
   const InputBox({
       super.key,
       required this.controller,
       required this.hintText,
       required this.obscureText,
+      this.decoration
     });
 
 
@@ -17,7 +18,7 @@ class InputBox extends StatelessWidget{
   Widget build(BuildContext context){
     return Padding(
         padding : const EdgeInsets.only(left : 15, top: 16, right : 22, bottom : 0),
-        child : TextField(
+        child : TextFormField(
           controller : controller,
           obscureText : obscureText,
           decoration : InputDecoration( 
@@ -46,4 +47,3 @@ class InputBox extends StatelessWidget{
       );
   }
 }
-

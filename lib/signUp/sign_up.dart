@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:proj3/components/input_box.dart';
@@ -5,13 +6,21 @@ import 'package:proj3/components/buttons.dart';
 import 'package:proj3/components/logo.dart';
 import 'package:proj3/login/log_in.dart';
 import 'package:proj3/signUp/verification.dart';
-import 'package:proj3/components/show_dialog.dart';
+import 'package:proj3/components/showDialog.dart';
+
+import '../components/utils.dart';
+import '../main.dart';
 
 class SignUp extends StatefulWidget {
+  final Function() onClickedSignIn;
   
+
   const SignUp({
-    super.key,
-  });
+    Key? key,
+    //super.key,
+
+    required this.onClickedSignIn,
+  }) : super(key: key);
 
   @override
   State<SignUp> createState() => _SignUpState();
@@ -68,11 +77,11 @@ class _SignUpState extends State<SignUp> {
                       hintText: 'Input Name', 
                       obscureText: false,
                     ),
-                    
+
                     //email
                     InputBox(
-                      controller: userEmailController, 
-                      hintText: 'Input Email', 
+                      controller: userEmailController,
+                      hintText: 'Input Email',
                       obscureText: false,
                     ),
                     
@@ -114,12 +123,13 @@ class _SignUpState extends State<SignUp> {
 
                     //Sign up button
                     GestureDetector(
-                      onTap : (){
-                          if((userNameController.text == '') || 
-                          (userEmailController.text == '' || 
+                      onTap : () {
+                          signUp();
+                          /* if((userNameController.text == '') ||
+                          (userEmailController.text == '' ||
                           (passwordController.text == ''))){
                             showDialog(
-                                context: context, 
+                                context: context,
                                 builder: (context){
                                   return const MyDialog(
                                     text : "There are no inputs either on Name, Email or Password. Please Check carefully!",
@@ -136,7 +146,7 @@ class _SignUpState extends State<SignUp> {
                           print(userNameController.text);
                           print(userEmailController.text);
                           print(passwordController.text);
-                        
+                          */
                       },
                       child : MyButton(
                         isChecked : isChecked,
@@ -240,13 +250,7 @@ class _SignUpState extends State<SignUp> {
                           ),
                         ),
                         GestureDetector(
-                          onTap : (){
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                  builder: (context) => Mylogin(),
-                                ),
-                            );
-                          },
+                          onTap : widget.onClickedSignIn,
                           child : Text(
                           ' Log in',
                           style : GoogleFonts.inter(textStyle : const TextStyle(
@@ -267,5 +271,25 @@ class _SignUpState extends State<SignUp> {
           ),
       ),
     );
+  }
+
+  Future signUp() async {
+    //showDialog(
+    //    context: context,
+    //    barrierDismissible: false,
+    //    builder: (context) => const Center(child: CircularProgressIndicator())
+    //);
+
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: userEmailController.text.trim(),
+          password: passwordController.text.trim()
+      );
+    } on FirebaseAuthException catch (e) {
+      print(e);
+      //Utils.showSnackBar(e.message);
+    }
+
+    //navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 }

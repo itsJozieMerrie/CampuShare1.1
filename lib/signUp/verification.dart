@@ -26,14 +26,14 @@ class MyVerif extends StatelessWidget{
                 const SizedBox(height : 196,),
                 Center(
                   child : Text(
-                      "Input Code we've sent to your email.",
+                      "We have sent you a verification email",
                       style : GoogleFonts.inter(
                         fontSize : 15,
                         color : Colors.white,
                       )
                     ),
                 ),
-
+                /*
                 //for the verification part
                 Form(
                   child : Padding(
@@ -316,7 +316,7 @@ class MyVerif extends StatelessWidget{
                       ),
                   ),
                 ),
-              ],
+             */],
             ),
           ),
         ),
